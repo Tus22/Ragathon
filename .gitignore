@@ -1,0 +1,36 @@
+# Ignore Python cache files
+__pycache__/
+*.pyc
+*.pyo
+test copy.py
+.chanlity.py
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# Ignore Python virtual environment directories
+venv/
+
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Ignore virtual environment
+myenv/
+
+# Ignore environment variables file
+.env
+# Ignore environment variables file
+.env.local
+.env.development.local
+
+
+# Ignore log files
+*.log
+
+# Ignore pdf files
+*.pdf
+
+# Ignore system files
+.DS_Store
+Thumbs.db
