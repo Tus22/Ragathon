@@ -1,8 +1,6 @@
 import os
-import json
 from langchain_openai import OpenAIEmbeddings
 from openai import AsyncOpenAI
-from literalai import LiteralClient
 from langchain_chroma import Chroma
 from typing import List, Dict, Any
 import chainlit as cl
@@ -24,19 +22,7 @@ vector_store = Chroma(
 
 cl.instrument_openai()
 
-#literalai_client = LiteralClient(url=os.getenv("LITERAL_API_URL"), api_key=os.getenv("LITERAL_API_KEY"))
 oai_client = AsyncOpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-
-#prompt_path = os.path.join(os.getcwd(), "prompt.json")
-
-#with open(prompt_path, "r") as f:
-#    rag_prompt = json.load(f)
-
-#    prompt = literalai_client.api.get_or_create_prompt(
-#        name=rag_prompt["name"],
-#        template_messages=rag_prompt["template_messages"],
-#        settings=rag_prompt["settings"]
-#    )
 
 # Get current `production` version of a text prompt
 prompt = langfuse.get_prompt("RAG prompt")
