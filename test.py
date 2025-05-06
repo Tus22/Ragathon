@@ -1,14 +1,14 @@
 import os
-import json
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 from langchain_openai import OpenAIEmbeddings
 from openai import AsyncOpenAI
-from literalai import LiteralClient
 from langchain_chroma import Chroma
 from typing import List, Dict, Any
 from langfuse.decorators import observe, langfuse_context
+from langfuse import Langfuse
+
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -24,6 +24,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Initialize Langfuse client
+langfuse = Langfuse()
+
 embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
 
 vector_store = Chroma(
@@ -31,20 +34,8 @@ vector_store = Chroma(
     persist_directory=os.getenv("PERSIST_DIRECTORY"),
 )
 
-#literalai_client = LiteralClient(url=os.getenv("LITERAL_API_URL"), api_key=os.getenv("LITERAL_API_KEY"))
 oai_client = AsyncOpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-#prompt_path = os.path.join(os.getcwd(), "prompt.json")
-
-# Load the RAG prompt
-#with open(prompt_path, "r") as f:
-#    rag_prompt = json.load(f)
-
-#    prompt = literalai_client.api.get_or_create_prompt(
-#        name=rag_prompt["name"],
-#        template_messages=rag_prompt["template_messages"],
-#        settings=rag_prompt["settings"]
-#    )
 
 # Get current `production` version of a text prompt
 prompt = langfuse.get_prompt("RAG prompt")
